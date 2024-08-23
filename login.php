@@ -32,16 +32,9 @@ try {
             // Email exists, display a message
             // Redirect to the target page
             header("Location: userDetails.php");
-            exit();
-        } else {
-            // Handle the file upload
-            $target_dir = "uploads/";
-            $target_file = $target_dir . basename($_FILES["profile"]["name"]);
-            if (move_uploaded_file($_FILES["profile"]["tmp_name"], $target_file)) {
-                echo "The file ". htmlspecialchars( basename( $_FILES["profile"]["name"])). " has been uploaded.<br>";
-            } else {
-                echo "Incorrect Credentials";
-            }
+        } 
+        else {
+            echo "<br>Incorrect Credentials";
         }
     }
 

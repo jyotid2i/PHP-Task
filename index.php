@@ -10,6 +10,11 @@ if (isset($_POST['loginButton'])) {
     header("Location: login.php");
     exit();
 }
+if (isset($_POST['seeUsers'])) {
+    // Redirect to the target page
+    header("Location: userDetails.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +32,9 @@ if (isset($_POST['loginButton'])) {
     </form>
     <form method="post">
         <button type="submit" name="registerButton">Register</button>
+    </form>
+    <form method="post">
+        <button type="submit" name="seeUsers">View Registered Users</button>
     </form>
 
 </body>

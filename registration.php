@@ -7,21 +7,19 @@ $username = "root";
 $password = "Jyoti123@#$";
 $dbname = "phpfirstproject";
 
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully";
-  } catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-  }
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        echo "Connected successfully";
+        
     // Check if the form is submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Get data from form inputs
-        $first_name = $_POST['first_name'];
-        $last_name = $_POST['last_name'];
-        $email = $_POST['email'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash the password
+        $first_name = $_REQUEST['first_name'];
+        $last_name = $_REQUEST['last_name'];
+        $email = $_REQUEST['email'];
+        $password = password_hash($_REQUEST['password'], PASSWORD_DEFAULT); // Hash the password
         $image_name = $_FILES['profile']['name'];
         
         // Check if the email already exists
@@ -35,7 +33,7 @@ try {
             echo "User already exists.<br>";
         } else {
             // Handle the file upload
-            $target_dir = "uploads/";
+            $target_dir = "images/";
             $target_file = $target_dir . basename($_FILES["profile"]["name"]);
             if (move_uploaded_file($_FILES["profile"]["tmp_name"], $target_file)) {
                 echo "The file ". htmlspecialchars( basename( $_FILES["profile"]["name"])). " has been uploaded.<br>";
@@ -63,8 +61,9 @@ try {
             }
         }
     }
-
-
+    } catch(PDOException $e) {
+        echo "Connection failed: " . $e->getMessage();
+    }
 ?>
 
 <form method="POST"  enctype="multipart/form-data">
